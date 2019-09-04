@@ -4,7 +4,7 @@ import {Button} from 'react-native-elements';
 import { Login } from '../models/login';
 import { AudaxService } from '../services/apiAudax';
 import { NavigationInjectedProps } from 'react-navigation';
-import * as Keychain from 'react-native-keychain';
+import * as SecureStore from 'expo-secure-store';
 
 export interface LoginProps {
 }
@@ -32,8 +32,8 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
     AudaxService.login(customerDetails).then((data)=>{ 
       this.setState({loggedIn : data});
       //Keychain.setGenericPassword(customerDetails.membershipNumber, customerDetails.password).then((result)=>{console.log('saved credentials')});
-      AsyncStorage.setItem("AudaxPassword", customerDetails.password);
-      AsyncStorage.setItem("AudaxUser", customerDetails.membershipNumber);
+      SecureStore.setItemAsync("AudaxPassword", customerDetails.password);
+      SecureStore.setItemAsync("AudaxUser", customerDetails.membershipNumber);
       this.props.navigation.push('Home')
     });
   }
