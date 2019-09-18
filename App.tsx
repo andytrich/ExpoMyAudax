@@ -5,17 +5,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 import MyRidesComponent from './screens/MyRides';
 import HomeComponent from './screens/Home';
 import AuthLoadingComponent from './screens/AuthLoading';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import MyDetailsComponent from './screens/MyDetails';
 import { AppLoading } from 'expo';
 import { Container, Text, Header, Left, Button, Icon, Body, Title, Right, Footer, FooterTab } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import EventsComponent from './screens/events';
+import EventsComponent from './screens/Events';
 
-const AuthStack = createStackNavigator({ Login: LoginComponent });
-//const AppStack = createStackNavigator({ Home: HomeComponent, MyRides: MyRidesComponent });
-const AppStack = createStackNavigator({ Home: HomeComponent, MyRides: MyRidesComponent, MyDetails: MyDetailsComponent, EventRides : EventsComponent });
+
+const AuthStack = createStackNavigator({ Login: LoginComponent },{headerMode:'none'});
+const AppStack = createStackNavigator({ Home: HomeComponent, MyRides: MyRidesComponent, MyDetails: MyDetailsComponent, EventRides : EventsComponent },{headerMode:'none'});
+//const AppStack = createStackNavigator({ Home: HomeComponent, MyRides: MyRidesComponent, MyDetails: MyDetailsComponent });
+
 
 const Main =  createAppContainer(
   createSwitchNavigator(
