@@ -19,8 +19,9 @@ export default class HomeComponent extends React.Component<NavigationInjectedPro
     return (
       <View style={{paddingTop:50}}>
          <Text>Audax Home</Text>         
-          <Button onPress={()=>{this.props.navigation.push('MyRides')}} title="MyRides"></Button>     
+          <Button onPress={()=>{this.props.navigation.navigate('MyRides')}} title="MyRides"></Button>  
+          <Button onPress={()=>{this.props.navigation.navigate('MyDetails')}} title="Details"></Button>
       </View>
     );
-  }
+    }
 }
