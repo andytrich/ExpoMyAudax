@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
-import {Button} from 'react-native-elements';
+import { View, StyleSheet, Text, AsyncStorage, Button } from 'react-native';
 import { Login } from '../models/login';
 import { AudaxService } from '../services/apiAudax';
 import { NavigationInjectedProps } from 'react-navigation';

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-elements';
 import { Login } from '../models/login';
 import { AudaxService } from '../services/apiAudax';
 import Axios from 'axios';
+import { Button } from 'native-base';
 
 export interface RiderDetailsProps {
 }
@@ -37,8 +37,8 @@ export default class RiderDetailsComponent extends React.Component<RiderDetailsP
   public render() {
     return (
       <View>
-                   <Button onPress={this.getMember} title="Member"></Button>
-                   <Button testID='LoginButton' onPress={()=>{this.getLoginState()}} title="Get Login State"></Button>
+{/*                    <Button onPress={this.getMember} title="Member"></Button>
+                   <Button testID='LoginButton' onPress={()=>{this.getLoginState()}} title="Get Login State"></Button> */}
 <Text>The state is : {this.state.loggedIn.toString()} *</Text>       
       </View>
     );

@@ -1,8 +1,7 @@
-import React from 'react'; 
+/* import React from 'react'; 
 import renderer, { act } from 'react-test-renderer'; 
 import LoginComponent from './Login';
 import { apiAudax } from '../services/apiAudax';
-import { Button } from 'react-native-elements';
 
 
 jest.mock('../services/apiAudax');
@@ -29,3 +28,4 @@ const logInButton = x.findByProps({testID: 'LoginButton'});
 
 
 
+ */

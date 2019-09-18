@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { AudaxService } from '../services/apiAudax';
 import { enteredRides } from '../models/enteredRides';
-import { ListItem } from 'react-native-elements';
+import { ListItem } from 'native-base';
 
 export interface MyRidesProps {
 }
@@ -27,7 +27,7 @@ export default class MyRidesComponent extends React.Component<MyRidesProps, MyRi
     return (
       <View>
          <Text>My Rides</Text>
-         {
+{/*          {
           this.state.myRides.map((l, i) => (
             <ListItem
               key={i}
@@ -35,7 +35,7 @@ export default class MyRidesComponent extends React.Component<MyRidesProps, MyRi
               subtitle={l.rideType}
             />
           ))
-          }
+          } */}
       </View>
     );
   }
