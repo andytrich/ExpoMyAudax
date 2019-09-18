@@ -66,6 +66,7 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
          <Button onPress={()=>{this.getMember()}} title="Member"></Button>
          <Button onPress={()=>{this.logOut()}} title="Logout"></Button>
          <Button onPress={()=>{this.props.navigation.push('Details')}} title="Details"></Button>
+         <Button onPress={()=>{this.props.navigation.push('MyRides')}} title="MyRides"></Button>   
          <Text>The state is : {this.state.loggedIn.toString()} *</Text>        
       </View>
     );

@@ -35,7 +35,7 @@ export default class MyRidesComponent extends React.Component<MyRidesProps, MyRi
               subtitle={l.rideType}
             />
           ))
-        }
+          }
       </View>
     );
   }
