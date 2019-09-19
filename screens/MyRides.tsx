@@ -2,10 +2,11 @@ import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { AudaxService } from '../services/apiAudax';
 import { enteredRides } from '../models/enteredRides';
-import { ListItem, Container, Content } from 'native-base';
+import { Container, Content } from 'native-base';
 import FooterComponent from './Footer';
 import HeaderComponent from './Header';
 import { NavigationInjectedProps } from 'react-navigation';
+import { ListItem } from 'react-native-elements';
 
 export interface MyRidesProps {
 }
@@ -31,12 +32,11 @@ export default class MyRidesComponent extends React.Component<NavigationInjected
       <Container style={{marginTop:25}}>
         <HeaderComponent></HeaderComponent>
         <Content>
-          <Text>My Rides</Text>
-          {/* {
+          <Text>My Rides</Text>{
           this.state.myRides.map((l, i) => (
           <ListItem key={i} title={l.title} subtitle={l.rideType} />
           ))
-          } */}
+          } 
         </Content>
         <FooterComponent navigation={this.props.navigation}></FooterComponent>
       </Container>
