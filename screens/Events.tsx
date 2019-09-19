@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { Container, Content, Text } from 'native-base';
+import HeaderComponent from './Header';
+import FooterComponent from './Footer';
+import { NavigationInjectedProps } from 'react-navigation';
 
 export interface EventsProps {
 }
@@ -7,8 +10,8 @@ export interface EventsProps {
 export interface EventsState {
 }
 
-export default class EventsComponent extends React.Component<EventsProps, EventsState> {
-  constructor(props: EventsProps) {
+export default class EventsComponent extends React.Component<NavigationInjectedProps<{}> & EventsProps, EventsState> {
+  constructor(props: NavigationInjectedProps<{}> & EventsProps) {
     super(props);
     this.state = {
     };
@@ -16,9 +19,13 @@ export default class EventsComponent extends React.Component<EventsProps, Events
 
   public render() {
     return (
-      <View>
-         <Text>Events Component</Text>
-      </View>
+      <Container style={{marginTop:25}}>
+        <HeaderComponent></HeaderComponent>
+        <Content>
+          <Text>Events</Text>
+        </Content>
+        <FooterComponent navigation={this.props.navigation}></FooterComponent>
+      </Container>
     );
   }
 }

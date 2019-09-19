@@ -49,7 +49,7 @@ export class apiAudax implements IapiAudax {
         try {
             console.log('Logged in state : ' + this.isLoggedIn);
             if (!this.isLoggedIn) {
-                let response = await Axios.post('https://www.aukweb.net/members/?action=logout', 'memno=' + login.membershipNumber + '&password=' + login.password + '&login=' + login.login);
+                let response = await Axios.post('https://www.aukweb.net/members/?action=logout', 'memno=' + login.membershipNumber + '&password=' + login.password + '&login=Login');
                 this.setLoggedIn(response);
             }
             console.log('Logged in state2 : ' + this.isLoggedIn);
