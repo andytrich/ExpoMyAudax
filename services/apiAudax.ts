@@ -8,7 +8,7 @@ import {
     enteredRides
 } from "../models/enteredRides";
 import {
-    CalendarEvent
+    CalendarEvent, CalendarEvents
 } from "../models/calendarEvents";
 import {
     eventsFilter
@@ -24,8 +24,8 @@ export interface IapiAudax {
     logoff(): Promise < boolean > ;
     myResults(): Array < rideResults > ;
     myRides(): Promise < Array < enteredRides >> ;
-    allEvents(): Array < CalendarEvent > ;
-    filteredEvents(filter: eventsFilter): Array < CalendarEvent > ;
+    allEvents(): Promise <CalendarEvents> ;
+    filteredEvents(filter: eventsFilter): Promise <Array < CalendarEvent >>;
 }
 
 
@@ -94,11 +94,26 @@ export class apiAudax implements IapiAudax {
 
 
     }
-    allEvents(): CalendarEvent[] {
-        throw new Error("Method not implemented.");
+    async allEvents(): Promise<CalendarEvents> {
+        try{
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search');
+            return response.data;
+        }catch(error)
+        {
+            console.log(error);
+        }
+        return null;
+        
     }
-    filteredEvents(filter: eventsFilter): CalendarEvent[] {
-        throw new Error("Method not implemented.");
+    async filteredEvents(filter: eventsFilter): Promise<CalendarEvent[]> {
+        try{
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search');
+            return response.data;
+        }catch(error)
+        {
+            console.log(error);
+        }
+        return null;
     }
 
     private extractMyRides(html: string): enteredRides[] {
