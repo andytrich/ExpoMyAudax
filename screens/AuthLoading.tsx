@@ -26,7 +26,7 @@ export default class AuthLoadingComponent extends React.Component<NavigationInje
         riderLoginDetail.password = await SecureStore.getItemAsync("AudaxPassword");
         riderLoginDetail.membershipNumber = +(await SecureStore.getItemAsync("AudaxUser"));
         let loggedIn = await AudaxService.login(riderLoginDetail);
-        this.props.navigation.navigate(loggedIn ? 'App' : 'Auth');
+        this.props.navigation.navigate(loggedIn ? 'MembersHome' : 'Auth');
       } catch (error) {
         this.props.navigation.navigate('Auth');
       }

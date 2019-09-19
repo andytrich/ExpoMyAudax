@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import { Card, CardItem, Icon } from 'native-base';
-import {Image} from 'react-native-elements';
-import { ActivityIndicator } from 'react-native';
+import { Col, Grid } from 'react-native-easy-grid';
+import { Container, Card, CardItem, Content, Text } from 'native-base';
+import FooterComponent from './Footer';
+import HeaderComponent from './Header';
 
 export interface HomeProps {
 }
@@ -20,31 +20,28 @@ export default class HomeComponent extends React.Component<NavigationInjectedPro
 
   public render() {
     return (
-        <Grid>
+      <Container style={{marginTop:25}}>
+        <HeaderComponent></HeaderComponent>
+        <Content>
+          <Grid>
             <Col>
-              <Card>                
-                <CardItem cardBody button onPress={()=>{this.props.navigation.navigate('EventRides')}}>
-                <Image
-                  source={{ uri: 'https://www.audax.uk/images/audax-logo.png' }}
-                  style={{ width: 200, height: 200 }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />           
-                </CardItem>
-              </Card>
+            <Card>
+              <CardItem cardBody button onPress={()=>{this.props.navigation.navigate('EventRides')}}>
+                <Text>Search for a ride</Text>
+              </CardItem>
+            </Card>
             </Col>
             <Col>
-              <Card>                
+            <Card>
               <CardItem cardBody button onPress={()=>{this.props.navigation.navigate('AuthLoading')}}>
-                <Image
-                  source={{ uri: 'https://www.audax.uk/images/audax-logo.png' }}
-                  style={{ width: 200, height: 200 }}
-                  PlaceholderContent={<ActivityIndicator />}
-                />        
-                </CardItem>
-              </Card>
+                <Text>Members</Text>
+              </CardItem>
+            </Card>
             </Col>
-        </Grid>
-
+          </Grid>
+        </Content>
+        <FooterComponent navigation={this.props.navigation}></FooterComponent>
+      </Container>
     );
     }
 }

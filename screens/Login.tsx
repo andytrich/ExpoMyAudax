@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, AsyncStorage, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { Login, LoginSchema } from '../models/login';
 import { AudaxService } from '../services/apiAudax';
 import { NavigationInjectedProps } from 'react-navigation';
 import * as SecureStore from 'expo-secure-store';
-import { Grid, Item, Input, Label, Button } from 'native-base';
-import { Col, Row } from 'react-native-easy-grid';
+import { Item, Input, Label, Button, Container, Content } from 'native-base';
 import { Formik} from 'formik';
+import HeaderComponent from './Header';
+import FooterComponent from './Footer';
 
 export interface LoginProps {
 }
@@ -42,70 +43,53 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
         console.log(rides);
       })
 }
-
-  logOut() {
-    AudaxService.logoff()
-      .then((response)=> {
-        AsyncStorage.removeItem("AudaxPassword");
-        AsyncStorage.removeItem("AudaxUser");
-        this.setState({loggedIn : false});
-        console.log('Logged off in service ' + response.toString());
-      })
-      .catch((error)=> {
-        this.setState({loggedIn : false});
-        console.log(error);
-      });
+  onSubmit=(values: {membershipNumber: number, password: string})=>{
+    let customerDetails = new Login();
+    customerDetails.membershipNumber = values.membershipNumber;
+    customerDetails.password = values.password;
+    AudaxService.login(customerDetails).then((data)=>{ 
+      this.setState({loggedIn : data});
+      SecureStore.setItemAsync("AudaxPassword", customerDetails.password);
+      SecureStore.setItemAsync("AudaxUser", customerDetails.membershipNumber.toString());
+      this.props.navigation.navigate('MembersHome');
+    });
   }
 
-  onSubmit(){
-
-  };
 
   public render() {
     return (
-      <Grid>
-        <Col style={{width:10, backgroundColor:'blue'}}></Col>
-      <Col style={{width:10,backgroundColor:'pink'}}>
-      <Row></Row>
-      <Row>
-      <Formik initialValues={{membershipNumber: 999,
-              password: ''}}
-              validationSchema={LoginSchema}
-              onSubmit={this.onSubmit}>
-                    {props => (
-      <View>
-        <Item inlineLabel>
-          <Label>Membership Number</Label>
-          <Input placeholder='Membership Number' onChangeText={props.handleChange('membershipNumber')}
-          onBlur={props.handleBlur('membershipNumber')}
-          value={props.values.membershipNumber.toString()}/>
-        </Item>
-        <Item inlineLabel>
-          <Label>Password</Label>
-          <Input placeholder='Passsword' secureTextEntry={true} onChangeText={props.handleChange('password')}
-          onBlur={props.handleBlur('password')}
-          value={props.values.password}/>
-        </Item>
-        <Button onPress={props.handleSubmit} title="Submit" />
-      </View>
-    )}
-      </Formik>
-      </Row>
-      <Row></Row>
-      </Col>
-      <Col style={{width:10, backgroundColor:'blue'}}></Col>
-      </Grid>
-        
+      <Container style={{marginTop:25}}>
+        <HeaderComponent></HeaderComponent>
+        <Content>
+          <Formik initialValues={{membershipNumber: 17370,
+              password: 'xr9hng'}} validationSchema={LoginSchema} onSubmit={this.onSubmit}>
+            {({ handleChange , handleSubmit, values, errors, touched }) => (
+            <View style={{  flex: 1, justifyContent: 'center', marginTop:200}}>
+              <View style={{flexDirection:'row', justifyContent:'center', alignItems:'flex-start', alignContent:'flex-start'}}>
+                <Label style={{width:180, height:30}}>Membership Number</Label>
+                <Item rounded style={{width:150, height:30}}>
+                  <Input placeholder='Membership Number' onChangeText={handleChange('membershipNumber')}
+                    value={values.membershipNumber.toString()} />
+                </Item>
+                <Text>{errors.membershipNumber}</Text>
+              </View>
+              <View style={{flexDirection:'row', justifyContent:'center', alignItems:'flex-start', alignContent:'flex-start'}}>
+                <Label style={{width:180, height:30}}>Password</Label>
+                <Item rounded style={{width:150, height:30}}>
+                  <Input placeholder='Password' secureTextEntry={true} onChangeText={handleChange('password')}
+                    value={values.password} />
+                  <Text>{errors.password}</Text>
+                </Item>
+              </View>
+              <View style={{flexDirection:'row',justifyContent: 'center', paddingTop:10}}>
+                <Button style={{width:80, borderRadius:10, justifyContent: 'center'}} onPress={handleSubmit}><Text style={{color:'white', fontWeight:'bold', fontSize:18}}>Sign In</Text></Button>
+              </View>
+            </View>
+            )}
+          </Formik>
+        </Content>
+        <FooterComponent navigation={this.props.navigation}></FooterComponent>
+      </Container>
     );
   }
 }
-
-/* <View style={{paddingTop:50}}>
-<Text>Login Component</Text>
-<Button testID='LoginButton' onPress={()=>{this.login()}} title="Login"></Button>
-<Button onPress={()=>{this.getMember()}} title="Member"></Button>
-<Button onPress={()=>{this.logOut()}} title="Logout"></Button>
-<Button onPress={()=>{this.props.navigation.push('Details')}} title="Details"></Button>
-<Button onPress={()=>{this.props.navigation.push('MyRides')}} title="MyRides"></Button>   
-<Text>The state is : {this.state.loggedIn.toString()} *</Text>        
-</View> */
