@@ -25,7 +25,7 @@ export interface IapiAudax {
     myResults(): Array < rideResults > ;
     myRides(): Promise < Array < enteredRides >> ;
     allEvents(): Promise <CalendarEvents> ;
-    filteredEvents(filter: eventsFilter): Promise <Array < CalendarEvent >>;
+    filteredEvents(filter: eventsFilter): Promise <CalendarEvents>;
 }
 
 
@@ -105,9 +105,13 @@ export class apiAudax implements IapiAudax {
         return null;
         
     }
-    async filteredEvents(filter: eventsFilter): Promise<CalendarEvent[]> {
+    async filteredEvents(filter: eventsFilter): Promise<CalendarEvents> {
         try{
-            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search');
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
+            ,{
+                params : filter
+            }
+            );
             return response.data;
         }catch(error)
         {

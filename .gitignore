@@ -9,3 +9,9 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+
+.vscode/.react/AppEntry.bundle
+
+.vscode/.react/AppEntry.map
+
+.vscode/.react/debuggerWorker.js

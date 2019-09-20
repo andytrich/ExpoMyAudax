@@ -6018,6 +6018,13 @@ react-native-testing-library@^1.11.1:
   dependencies:
     pretty-format "^24.0.0"
 
+react-native-touchable-scale@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-touchable-scale/-/react-native-touchable-scale-2.0.0.tgz#13a83a9423e46049cad3e3cc306eba2130883cb1"
+  integrity sha512-Dh0tSVJ4hv+gMDx3x7YHEO9Dxsw6JPrIAc6NVpPB6i8QlV7A5ty8l/4nL/Yl2pYHCzesj26zughnBSniMKTVqA==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add Formik
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/react-native-touchable-scale
 
 PATH: 
   C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files (x86)\Yarn\bin\;C:\Users\arich\AppData\Local\Android\Sdk\tools;C:\Users\arich\AppData\Local\Microsoft\WindowsApps;C:\Users\arich\AppData\Roaming\npm;C:\Users\arich\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\arich\AppData\Local\Programs\Git\cmd;C:\Users\arich\AppData\Local\GitHubDesktop\bin;C:\Users\arich\AppData\Local\Yarn\bin;C:\Users\arich\.dotnet\tools;C:\Users\arich\AppData\Local\Android\Sdk\platform-tools;
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/Formik: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-native-touchable-scale: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65939:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140464:22)
       at Request.emit (events.js:198:13)
@@ -54,15 +54,18 @@ npm manifest:
       "react-native-gesture-handler": "~1.3.0",
       "react-native-paper": "^2.16.0",
       "react-native-reanimated": "^1.1.0",
+      "react-native-touchable-scale": "^2.0.0",
       "react-native-web": "^0.11.4",
       "react-navigation": "^4.0.0",
       "react-navigation-material-bottom-tabs": "^1.1.1",
       "react-navigation-stack": "^1.5.1",
-      "react-test-renderer": "16.8.3"
+      "react-test-renderer": "16.8.3",
+      "yup": "^0.27.0"
     },
     "devDependencies": {
       "@types/react": "^16.8.23",
       "@types/react-native": "^0.57.65",
+      "@types/yup": "^0.26.24",
       "babel-preset-expo": "^6.0.0",
       "jest": "^24.9.0",
       "jest-expo": "^34.0.1",
@@ -1332,6 +1335,11 @@ Lockfile:
     integrity sha512-lwwgizwk/bIIU+3ELORkyuOgDjCh7zuWDFqRtPPhhVgq9N1F7CvLNKg1TX4f2duwtKQ0p044Au9r1PLIXHrIzQ==
     dependencies:
       "@types/yargs-parser" "*"
+  
+  "@types/yup@^0.26.24":
+    version "0.26.24"
+    resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.24.tgz#c24170b3a5c867b4fabd49fcc42fe45f780cb153"
+    integrity sha512-x0bhHnYjH5mZit4HivUYbTMO4LouOTGwp/LLxSL1mbJYVwNJtHYESH0ed2bwM1lkI2yDmsoCDYJnWEgHeJDACg==
   
   "@unimodules/core@~3.0.0":
     version "3.0.2"
@@ -3145,6 +3153,11 @@ Lockfile:
       glob "^7.0.0"
       kefir "^3.7.3"
       yargs "^11.0.0"
+  
+  fn-name@~2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/fn-name/-/fn-name-2.0.1.tgz#5214d7537a4d06a4a301c0cc262feb84188002e7"
+    integrity sha1-UhTXU3pNBqSjAcDMJi/rhBiAAuc=
   
   follow-redirects@1.5.10:
     version "1.5.10"
@@ -5843,6 +5856,11 @@ Lockfile:
       object-assign "^4.1.1"
       react-is "^16.8.1"
   
+  property-expr@^1.5.0:
+    version "1.5.1"
+    resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-1.5.1.tgz#22e8706894a0c8e28d58735804f6ba3a3673314f"
+    integrity sha512-CGuc0VUTGthpJXL36ydB6jnbyOf/rAHFvmVrJlH+Rg0DqqLFQGAP6hIaxD/G0OAmBJPhXDHuEJigrp0e0wFV6g==
+  
   pseudomap@^1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -6089,6 +6107,13 @@ Lockfile:
     integrity sha512-PTwDn1sgegvFqqF1v9zrRUChHqFqp5rWVUjXgkk134wssVhfc2oAuS6kiOvr3w7tLmFzuspxvT5sw0gMrRnDfQ==
     dependencies:
       pretty-format "^24.0.0"
+  
+  react-native-touchable-scale@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/react-native-touchable-scale/-/react-native-touchable-scale-2.0.0.tgz#13a83a9423e46049cad3e3cc306eba2130883cb1"
+    integrity sha512-Dh0tSVJ4hv+gMDx3x7YHEO9Dxsw6JPrIAc6NVpPB6i8QlV7A5ty8l/4nL/Yl2pYHCzesj26zughnBSniMKTVqA==
+    dependencies:
+      prop-types "^15.6.0"
   
   react-native-vector-icons@^6.6.0:
     version "6.6.0"
@@ -7051,6 +7076,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
     integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
   
+  synchronous-promise@^2.0.6:
+    version "2.0.10"
+    resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-2.0.10.tgz#e64c6fd3afd25f423963353043f4a68ebd397fd8"
+    integrity sha512-6PC+JRGmNjiG3kJ56ZMNWDPL8hjyghF5cMXIFOKg+NiwwEZZIvxTWd0pinWKyD227odg9ygF8xVhhz7gb8Uq7A==
+  
   tar@^4:
     version "4.4.10"
     resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.10.tgz#946b2810b9a5e0b26140cf78bea6b0b0d689eba1"
@@ -7161,6 +7191,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
     integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+  
+  toposort@^2.0.2:
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
+    integrity sha1-riF2gXXRVZ1IvvNUILL0li8JwzA=
   
   tough-cookie@^2.3.3, tough-cookie@^2.3.4:
     version "2.5.0"
@@ -7730,3 +7765,15 @@ Lockfile:
       which-module "^2.0.0"
       y18n "^3.2.1"
       yargs-parser "^7.0.0"
+  
+  yup@^0.27.0:
+    version "0.27.0"
+    resolved "https://registry.yarnpkg.com/yup/-/yup-0.27.0.tgz#f8cb198c8e7dd2124beddc2457571329096b06e7"
+    integrity sha512-v1yFnE4+u9za42gG/b/081E7uNW9mUj3qtkmelLbW5YPROZzSH/KUUyJu9Wt8vxFJcT9otL/eZopS0YK1L5yPQ==
+    dependencies:
+      "@babel/runtime" "^7.0.0"
+      fn-name "~2.0.1"
+      lodash "^4.17.11"
+      property-expr "^1.5.0"
+      synchronous-promise "^2.0.6"
+      toposort "^2.0.2"

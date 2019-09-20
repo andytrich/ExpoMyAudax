@@ -18,9 +18,9 @@ export default class HeaderComponent extends React.Component<HeaderProps, Header
     return (
         <Header>
         <Left>
-            <Button transparent>
+{/*             <Button transparent>
               <Icon name='menu' />
-            </Button>
+            </Button> */}
           </Left>
           <Body>
             <Title>Audax UK</Title>
