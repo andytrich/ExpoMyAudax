@@ -96,16 +96,18 @@ export class apiAudax implements IapiAudax {
     }
     async allEvents(): Promise<CalendarEvents> {
         try{
-            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search');
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search?pageSize=300&page=1&orderBy=eventdate');
             return response.data;
         }catch(error)
         {
             console.log(error);
         }
         return null;
-        
     }
+    
     async filteredEvents(filter: eventsFilter): Promise<CalendarEvents> {
+        filter.page=1;
+        filter.pageSize=300
         try{
             let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
             ,{

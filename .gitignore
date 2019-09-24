@@ -15,3 +15,5 @@ web-report/
 .vscode/.react/AppEntry.map
 
 .vscode/.react/debuggerWorker.js
+
+yarn-error.log
