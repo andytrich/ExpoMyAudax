@@ -27,9 +27,8 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
 
    login() {
     let customerDetails = new Login();
-    //customerDetails.login = 'Login';
-    customerDetails.membershipNumber = 17370;
-    customerDetails.password = 'xr9hng';
+/*     customerDetails.membershipNumber = 17370;
+    customerDetails.password = 'xr9hng'; */
     AudaxService.login(customerDetails).then((data)=>{ 
       this.setState({loggedIn : data});
       SecureStore.setItemAsync("AudaxPassword", customerDetails.password);

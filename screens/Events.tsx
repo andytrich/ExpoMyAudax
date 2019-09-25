@@ -49,7 +49,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     }
     this.setState({IsLoading: false});
   } 
-  async getEvents(){    
+  async getAllEvents(){    
     try {
       this.setState({IsLoading: true});
       let eventsList = await AudaxService.allEvents();
