@@ -25,7 +25,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
 
     let initalEventFilter = new eventsFilter();
     initalEventFilter.minDistance = 50;
-    initalEventFilter.maxDistance = 50;
+    initalEventFilter.maxDistance = 99;
     this.state = {
       events : new Array<CalendarEvent>(), 
       IsLoading : false,
@@ -102,8 +102,36 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
 
   onFilterChange(itemValue, filter : eventsFilter)
   {
-    filter.minDistance = itemValue; 
-    filter.maxDistance=itemValue; 
+    filter.minDistance = +itemValue; 
+    
+    
+    switch (filter.minDistance) {
+      case 50:
+         filter.maxDistance = filter.minDistance+49;
+        break;
+        case 100:
+          filter.maxDistance = filter.minDistance+49;
+           break;
+        case 150:
+          filter.maxDistance = filter.minDistance+49;
+            break; 
+        case 200:
+          filter.maxDistance = filter.minDistance+99;
+          break; 
+        case 300:
+          filter.maxDistance = filter.minDistance+99;
+          break;   
+        case 400:
+          filter.maxDistance = filter.minDistance+99;
+          break;        
+        case 600:
+          filter.maxDistance = filter.minDistance+99;
+          break;        
+      default:
+        filter.maxDistance = filter.minDistance+99;
+        break;
+    }
+
     this.setState({myEventsFilter : filter}); 
     this.getFilteredEvents(filter);
   }
@@ -115,29 +143,30 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     return (
       <Container style={{marginTop:25}}>
         <HeaderComponent></HeaderComponent>
-        <View>
-          <Text>Events</Text>
-          <Picker selectedValue={filter.minDistance}               
+        <View style={{backgroundColor : '#f2f0f0', borderStyle:'solid', borderRadius:10, borderColor:'#999999' }}>
+          <Text>Select Distance</Text>
+          <Picker selectedValue={filter.minDistance.toString()}                                     
               mode="dropdown"
               iosHeader="Event Distance"
               iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: "#007aff", fontSize: 25 }} />}
-              style={{ width: undefined }}
+              //style={{ width: undefined, backgroundColor : '#f2f0f0', borderStyle:'solid', borderRadius:10, borderColor:'#999999' }}
+              style={{ width: undefined, borderStyle:'solid', borderRadius:10, borderColor:'black' }}
               itemStyle={{
-                backgroundColor: "#d3d3d3",
+                backgroundColor: "black",
                 marginLeft: 0,
                 paddingLeft: 10
               }}
                onValueChange={(itemValue,
                               onFilterChange)=> {this.onFilterChange(itemValue,filter)}}
           >
-            <Picker.Item label="50km" value="50" color={this.gradientCalculator(50)[1]} />
-            <Picker.Item label="100km" value="100" color={this.gradientCalculator(100)[1]} />
-            <Picker.Item label="150km" value="150" color={this.gradientCalculator(150)[1]} />
-            <Picker.Item label="200km" value="200" color={this.gradientCalculator(200)[1]} />
-            <Picker.Item label="300km" value="300" color={this.gradientCalculator(300)[1]} />
-            <Picker.Item label="400km" value="400" color={this.gradientCalculator(400)[1]} />
-            <Picker.Item label="600km" value="600" color={this.gradientCalculator(600)[1]} />
-            <Picker.Item label="1000km" value="1000" color={this.gradientCalculator(1000)[1]}/>
+            <Picker.Item label="View all 50km rides" value="50" color={this.gradientCalculator(50)[1]} />
+            <Picker.Item label="View all 100km rides" value="100" color={this.gradientCalculator(100)[1]} />
+            <Picker.Item label="View all 150km rides" value="150" color={this.gradientCalculator(150)[1]} />
+            <Picker.Item label="View all 200km rides" value="200" color={this.gradientCalculator(200)[1]} />
+            <Picker.Item label="View all 300km rides" value="300" color={this.gradientCalculator(300)[1]} />
+            <Picker.Item label="View all 400km rides" value="400" color={this.gradientCalculator(400)[1]} />
+            <Picker.Item label="View all 600km rides" value="600" color={this.gradientCalculator(600)[1]} />
+            <Picker.Item label="View all 1000km rides" value="1000" color={this.gradientCalculator(1000)[1]}/>
           </Picker>
         </View>
         <Content>

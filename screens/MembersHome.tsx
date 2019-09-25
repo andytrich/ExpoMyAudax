@@ -41,7 +41,7 @@ export default class MembersHomeComponent extends React.Component<NavigationInje
     return (
       <Container style={{marginTop:25}}>
         <HeaderComponent></HeaderComponent>
-           <Content style={{marginTop:100}}>
+           <Content >
             <Card >
               <CardItem style={{width:'100%', justifyContent:'center', }} cardBody button onPress={()=>{this.props.navigation.navigate('MyRides')}}>
               <Icon name='calendar' type='font-awesome' size={100}></Icon>

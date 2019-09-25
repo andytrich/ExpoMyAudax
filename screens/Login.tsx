@@ -48,9 +48,15 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
     customerDetails.password = values.password;
     AudaxService.login(customerDetails).then((data)=>{ 
       this.setState({loggedIn : data});
+      if (data){
       SecureStore.setItemAsync("AudaxPassword", customerDetails.password);
       SecureStore.setItemAsync("AudaxUser", customerDetails.membershipNumber.toString());
       this.props.navigation.navigate('MembersHome');
+      }
+      else
+      {
+        alert("Login details are incorrect, please try again")
+      }
     });
   }
 
@@ -60,24 +66,26 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
       <Container style={{marginTop:25}}>
         <HeaderComponent></HeaderComponent>
         <Content>
-          <Formik initialValues={{membershipNumber: 17370,
-              password: 'xr9hng'}} validationSchema={LoginSchema} onSubmit={this.onSubmit}>
+          <Formik initialValues={{membershipNumber: 0,
+              password: ''}} validationSchema={LoginSchema} onSubmit={this.onSubmit}>
             {({ handleChange , handleSubmit, values, errors, touched }) => (
-            <View style={{  flex: 1, justifyContent: 'center', marginTop:200}}>
+            <View style={{  flex: 1, justifyContent: 'center', marginTop:110}}>
+              <View>
+                <Text>{errors.membershipNumber}</Text>
+                <Text>{errors.password}</Text>
+              </View>
               <View style={{flexDirection:'row', justifyContent:'center', alignItems:'flex-start', alignContent:'flex-start'}}>
                 <Label style={{width:180, height:30}}>Membership Number</Label>
                 <Item rounded style={{width:150, height:30}}>
                   <Input placeholder='Membership Number' onChangeText={handleChange('membershipNumber')}
                     value={values.membershipNumber.toString()} />
-                </Item>
-                <Text>{errors.membershipNumber}</Text>
+                </Item>                
               </View>
               <View style={{flexDirection:'row', justifyContent:'center', alignItems:'flex-start', alignContent:'flex-start'}}>
                 <Label style={{width:180, height:30}}>Password</Label>
                 <Item rounded style={{width:150, height:30}}>
                   <Input placeholder='Password' secureTextEntry={true} onChangeText={handleChange('password')}
-                    value={values.password} />
-                  <Text>{errors.password}</Text>
+                    value={values.password} />                  
                 </Item>
               </View>
               <View style={{flexDirection:'row',justifyContent: 'center', paddingTop:10}}>

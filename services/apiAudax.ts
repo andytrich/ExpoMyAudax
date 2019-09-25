@@ -108,6 +108,7 @@ export class apiAudax implements IapiAudax {
     async filteredEvents(filter: eventsFilter): Promise<CalendarEvents> {
         filter.page=1;
         filter.pageSize=300
+        filter.orderBy='eventdate'
         try{
             let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
             ,{
