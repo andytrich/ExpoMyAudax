@@ -109,6 +109,8 @@ export class apiAudax implements IapiAudax {
         filter.page=1;
         filter.pageSize=300
         filter.orderBy='eventdate'
+        filter.toDate = new Date();
+        filter.fromDate = new Date(filter.toDate.setFullYear(filter.toDate.getFullYear() + 1));  
         try{
             let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
             ,{
