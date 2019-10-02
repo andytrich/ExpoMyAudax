@@ -37,11 +37,6 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
     });
   }
 
-  getMember() {
-    AudaxService.myRides().then((rides)=>{
-        console.log(rides);
-      })
-}
   onSubmit=(values: {membershipNumber: number, password: string})=>{
     let customerDetails = new Login();
     customerDetails.membershipNumber = values.membershipNumber;

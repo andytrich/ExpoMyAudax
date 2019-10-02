@@ -42,7 +42,6 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     try {
       this.setState({IsLoading: true});
       let eventsList = await AudaxService.filteredEvents(filter);
-      console.log(eventsList.TotalCount);
       this.setState({events: eventsList.Items});
     } catch (error) {
       this.setState({IsLoading: false});
@@ -53,7 +52,6 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     try {
       this.setState({IsLoading: true});
       let eventsList = await AudaxService.allEvents();
-      console.log(eventsList);
       this.setState({events: eventsList.Items});
     } catch (error) {      
       this.setState({IsLoading: false});

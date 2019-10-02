@@ -2767,11 +2767,6 @@ expo-sqlite@~6.0.0:
     "@types/websql" "^0.0.27"
     lodash "^4.17.11"
 
-expo-web-browser@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-7.0.0.tgz#97d72fe8389079c8da4208eaedfe85247b5bd704"
-  integrity sha512-zQ0mms8djq9mBcJlV3GxmlOkiCaJqQx+OZ8jk7s4SwCVTtvuCR4LMNHW8oG9tBUNhnvF7vYTE7m64WZf9fgJRA==
-
 expo-web-browser@~6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-6.0.0.tgz#63a59d4c02cd7ba47faa6a2eb04decb1a1ab2a32"
@@ -5040,6 +5035,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 morgan@^1.9.0:
   version "1.9.1"

@@ -47,33 +47,27 @@ export class apiAudax implements IapiAudax {
 
     async login(login: Login): Promise < boolean > {
         try {
-            console.log('Logged in state : ' + this.isLoggedIn);
             if (!this.isLoggedIn) {
                 let response = await Axios.post('https://www.aukweb.net/members/?action=logout', 'memno=' + login.membershipNumber + '&password=' + login.password + '&login=Login');
                 this.setLoggedIn(response);
             }
-            console.log('Logged in state2 : ' + this.isLoggedIn);
             return this.isLoggedIn;
 
         } catch (error) {
             this.isLoggedIn = false;
-            console.log('Logged in state3 : ' + this.isLoggedIn);
             return this.isLoggedIn;
         }
     }
 
     async logoff(): Promise < boolean > {
-        console.log('Log off state : ' + this.isLoggedIn);
         try {
             let data = new FormData();
             data.append("logout", "Logout");
             let response = await Axios.post('https://www.aukweb.net/members/?action=logout', data);
             this.setLoggedIn(response);
-            console.log('Log off state2 : ' + this.isLoggedIn);
             return !this.isLoggedIn;
         } catch (error) {
             this.isLoggedIn = false;
-            console.log('Logged off state3 : ' + this.isLoggedIn);
             return !this.isLoggedIn;
         }
     }
@@ -88,7 +82,7 @@ export class apiAudax implements IapiAudax {
             return this.extractMyRides(htmlBody);
 
         } catch (error) {
-            console.log(error);
+           // console.log(error);
         }
         return null;
 
@@ -100,7 +94,7 @@ export class apiAudax implements IapiAudax {
             return response.data;
         }catch(error)
         {
-            console.log(error);
+            //console.log(error);
         }
         return null;
     }
@@ -109,8 +103,10 @@ export class apiAudax implements IapiAudax {
         filter.page=1;
         filter.pageSize=300
         filter.orderBy='eventdate'
-        filter.toDate = new Date();
-        filter.fromDate = new Date(filter.toDate.setFullYear(filter.toDate.getFullYear() + 1));  
+        
+        filter.fromDate = new Date();
+        filter.toDate = new Date();  
+        filter.toDate.setFullYear(filter.fromDate.getFullYear() + 1)
         try{
             let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
             ,{
@@ -120,7 +116,7 @@ export class apiAudax implements IapiAudax {
             return response.data;
         }catch(error)
         {
-            console.log(error);
+            //console.log(error);
         }
         return null;
     }
@@ -144,6 +140,12 @@ export class apiAudax implements IapiAudax {
         do {
             let currentRide = new enteredRides();
             //Get ride details
+            //ride id
+            //<a href="/events/detail/
+            pos = html.indexOf('<a href="/events/detail/', pos) + 27;
+            endPos = html.indexOf('"', pos) - 1;
+            currentRide.id = +html.substr(pos, endPos - pos);
+
             //ride type
             //Find <img title="
             pos = html.indexOf('<img title="', pos) + 12;
@@ -159,8 +161,8 @@ export class apiAudax implements IapiAudax {
             //ride distance
             //<span class="distance">
             pos = html.indexOf('<span class="distance">', pos) + 23;
-            endPos = html.indexOf('</span>', pos);
-            currentRide.distance = html.substr(pos, endPos - pos);
+            endPos = html.indexOf('</span>', pos) - 2;
+            currentRide.distance = +html.substr(pos, endPos - pos);
 
 
             //Ride name
