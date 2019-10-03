@@ -3,7 +3,7 @@ import { View, ActivityIndicator, StatusBar} from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationInjectedProps } from 'react-navigation';
 import { Login } from '../models/login';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 
 export interface AuthLoadingProps {
 }

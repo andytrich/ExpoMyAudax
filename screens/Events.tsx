@@ -3,7 +3,7 @@ import { Container, Content, Text, Button, View, Spinner, Picker, Icon } from 'n
 import HeaderComponent from './Header';
 import FooterComponent from './Footer';
 import { NavigationInjectedProps } from 'react-navigation';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 import { CalendarEvent } from '../models/calendarEvents';
 import { ListItem } from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale';

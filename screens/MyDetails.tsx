@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 import { NavigationInjectedProps } from 'react-navigation';
 import * as SecureStore from 'expo-secure-store';
 import { Container, Footer, Content } from 'native-base';

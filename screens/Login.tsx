@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { Login, LoginSchema } from '../models/login';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 import { NavigationInjectedProps } from 'react-navigation';
 import * as SecureStore from 'expo-secure-store';
 import { Item, Input, Label, Button, Container, Content } from 'native-base';
@@ -25,18 +25,6 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
     };
   }
 
-   login() {
-    let customerDetails = new Login();
-/*     customerDetails.membershipNumber = 17370;
-    customerDetails.password = 'xr9hng'; */
-    AudaxService.login(customerDetails).then((data)=>{ 
-      this.setState({loggedIn : data});
-      SecureStore.setItemAsync("AudaxPassword", customerDetails.password);
-      SecureStore.setItemAsync("AudaxUser", customerDetails.membershipNumber.toString());
-      this.props.navigation.push('Home')
-    });
-  }
-
   onSubmit=(values: {membershipNumber: number, password: string})=>{
     let customerDetails = new Login();
     customerDetails.membershipNumber = values.membershipNumber;
@@ -54,7 +42,6 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
       }
     });
   }
-
 
   public render() {
     return (
@@ -84,7 +71,7 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
                 </Item>
               </View>
               <View style={{flexDirection:'row',justifyContent: 'center', paddingTop:10}}>
-                <Button style={{width:80, borderRadius:10, justifyContent: 'center'}} onPress={handleSubmit}><Text style={{color:'white', fontWeight:'bold', fontSize:18}}>Sign In</Text></Button>
+                <Button testID='LoginButton' style={{width:80, borderRadius:10, justifyContent: 'center'}} onPress={handleSubmit}><Text style={{color:'white', fontWeight:'bold', fontSize:18}}>Sign In</Text></Button>
               </View>
             </View>
             )}

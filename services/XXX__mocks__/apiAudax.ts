@@ -1,4 +1,4 @@
-import { IapiAudax } from "../apiAudax";
+/* import { IapiAudax } from "../AudaxService";
 import { Login } from "../../models/login";
 import { rideResults } from "../../models/rideResults";
 import { enteredRides } from "../../models/enteredRides";
@@ -30,4 +30,4 @@ class apiAudaxMock implements IapiAudax {
     }
 }
 
-export const MockAudaxService = new apiAudaxMock();
+export const MockAudaxService = new apiAudaxMock(); */

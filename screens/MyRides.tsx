@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, Linking } from 'react-native';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 import { enteredRides } from '../models/enteredRides';
 import { Container, Content } from 'native-base';
 import FooterComponent from './Footer';

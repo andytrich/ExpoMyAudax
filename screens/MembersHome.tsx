@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, ActivityIndicator } from 'react-native';
 import {  Image } from 'react-native-elements';
-import { AudaxService } from '../services/apiAudax';
+import { AudaxService } from '../services/AudaxService';
 import { NavigationInjectedProps } from 'react-navigation';
 import { Button, Container, Content, Card, CardItem } from 'native-base';
 import * as SecureStore from 'expo-secure-store';
