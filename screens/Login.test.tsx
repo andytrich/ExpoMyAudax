@@ -2,6 +2,7 @@ import React from 'react';
 import renderer, { act } from 'react-test-renderer'; 
 import LoginComponent from './Login';
 import { AudaxService } from '../services/AudaxService';
+import { fireEvent, render, wait } from '@testing-library/react-native';
 
 
 jest.mock('../services/AudaxService');

@@ -6,10 +6,14 @@ export const LoginSchema = Yup.object<Login>({
       .required('Please enter your password'),
   });
 
+/*   export const LoginSchema = Yup.object<Login>({
+    membershipNumber: Yup.number(),
+    password: Yup.string(),
+  }); */
+
 export class Login {
     membershipNumber : number;
     password: string;
-    //login: string = 'Login';
 }
 
 
