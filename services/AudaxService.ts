@@ -82,7 +82,7 @@ export class apiAudax implements IapiAudax {
             return this.extractMyRides(htmlBody);
 
         } catch (error) {
-           // console.log(error);
+
         }
         return null;
 
@@ -94,7 +94,7 @@ export class apiAudax implements IapiAudax {
             return response.data;
         }catch(error)
         {
-            //console.log(error);
+
         }
         return null;
     }
@@ -116,7 +116,7 @@ export class apiAudax implements IapiAudax {
             return response.data;
         }catch(error)
         {
-            //console.log(error);
+
         }
         return null;
     }
