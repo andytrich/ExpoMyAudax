@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
-import { Button } from 'react-native-elements';
-import { AudaxService } from '../services/apiAudax';
+import { View, StyleSheet, Text, Button } from 'react-native';
+import { AudaxService } from '../services/AudaxService';
+import { NavigationInjectedProps } from 'react-navigation';
+import * as SecureStore from 'expo-secure-store';
+import { Container, Footer, Content } from 'native-base';
+import HeaderComponent from './Header';
+import FooterComponent from './Footer';
 
 export interface MyDetailsProps {
 }
@@ -9,32 +13,22 @@ export interface MyDetailsProps {
 export interface MyDetailsState {
 }
 
-export default class MyDetailsComponent extends React.Component<MyDetailsProps, MyDetailsState> {
-  constructor(props: MyDetailsProps) {
+export default class MyDetailsComponent extends React.Component<NavigationInjectedProps<{}> &  MyDetailsProps, MyDetailsState> {
+  constructor(props: NavigationInjectedProps<{}> &  MyDetailsProps) {
     super(props);
     this.state = {
     };
   }
 
-  logOut() {
-    AudaxService.logoff()
-      .then((response)=> {
-        AsyncStorage.removeItem("AudaxPassword");
-        AsyncStorage.removeItem("AudaxUser");
-        this.setState({loggedIn : false});
-        console.log('Logged off in service ' + response.toString());
-      })
-      .catch((error)=> {
-        this.setState({loggedIn : false});
-        console.log(error);
-      });
-  }
-  
+ 
   public render() {
     return (
-      <View>
-         <Button onPress={()=>{this.logOut()}} title="Logout"></Button>
-      </View>
+      <Container style={{marginTop:25}}>
+        <HeaderComponent></HeaderComponent>
+        <Content>
+          <FooterComponent navigation={this.props.navigation}></FooterComponent>
+        </Content>
+      </Container>
     );
   }
 }

@@ -8,7 +8,7 @@ import {
     enteredRides
 } from "../models/enteredRides";
 import {
-    CalendarEvent
+    CalendarEvent, CalendarEvents
 } from "../models/calendarEvents";
 import {
     eventsFilter
@@ -24,8 +24,8 @@ export interface IapiAudax {
     logoff(): Promise < boolean > ;
     myResults(): Array < rideResults > ;
     myRides(): Promise < Array < enteredRides >> ;
-    allEvents(): Array < CalendarEvent > ;
-    filteredEvents(filter: eventsFilter): Array < CalendarEvent > ;
+    allEvents(): Promise <CalendarEvents> ;
+    filteredEvents(filter: eventsFilter): Promise <CalendarEvents>;
 }
 
 
@@ -47,33 +47,27 @@ export class apiAudax implements IapiAudax {
 
     async login(login: Login): Promise < boolean > {
         try {
-            console.log('Logged in state : ' + this.isLoggedIn);
             if (!this.isLoggedIn) {
-                let response = await Axios.post('https://www.aukweb.net/members/?action=logout', 'memno=' + login.membershipNumber + '&password=' + login.password + '&login=' + login.login);
+                let response = await Axios.post('https://www.aukweb.net/members/?action=logout', 'memno=' + login.membershipNumber + '&password=' + login.password + '&login=Login');
                 this.setLoggedIn(response);
             }
-            console.log('Logged in state2 : ' + this.isLoggedIn);
             return this.isLoggedIn;
 
         } catch (error) {
             this.isLoggedIn = false;
-            console.log('Logged in state3 : ' + this.isLoggedIn);
             return this.isLoggedIn;
         }
     }
 
     async logoff(): Promise < boolean > {
-        console.log('Log off state : ' + this.isLoggedIn);
         try {
             let data = new FormData();
             data.append("logout", "Logout");
             let response = await Axios.post('https://www.aukweb.net/members/?action=logout', data);
             this.setLoggedIn(response);
-            console.log('Log off state2 : ' + this.isLoggedIn);
             return !this.isLoggedIn;
         } catch (error) {
             this.isLoggedIn = false;
-            console.log('Logged off state3 : ' + this.isLoggedIn);
             return !this.isLoggedIn;
         }
     }
@@ -88,17 +82,43 @@ export class apiAudax implements IapiAudax {
             return this.extractMyRides(htmlBody);
 
         } catch (error) {
-            console.log(error);
+           // console.log(error);
         }
         return null;
 
 
     }
-    allEvents(): CalendarEvent[] {
-        throw new Error("Method not implemented.");
+    async allEvents(): Promise<CalendarEvents> {
+        try{
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search?pageSize=300&page=1&orderBy=eventdate');
+            return response.data;
+        }catch(error)
+        {
+            //console.log(error);
+        }
+        return null;
     }
-    filteredEvents(filter: eventsFilter): CalendarEvent[] {
-        throw new Error("Method not implemented.");
+    
+    async filteredEvents(filter: eventsFilter): Promise<CalendarEvents> {
+        filter.page=1;
+        filter.pageSize=300
+        filter.orderBy='eventdate'
+        
+        filter.fromDate = new Date();
+        filter.toDate = new Date();  
+        filter.toDate.setFullYear(filter.fromDate.getFullYear() + 1)
+        try{
+            let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
+            ,{
+                params : filter
+            }
+            );
+            return response.data;
+        }catch(error)
+        {
+            //console.log(error);
+        }
+        return null;
     }
 
     private extractMyRides(html: string): enteredRides[] {
@@ -120,6 +140,12 @@ export class apiAudax implements IapiAudax {
         do {
             let currentRide = new enteredRides();
             //Get ride details
+            //ride id
+            //<a href="/events/detail/
+            pos = html.indexOf('<a href="/events/detail/', pos) + 27;
+            endPos = html.indexOf('"', pos) - 1;
+            currentRide.id = +html.substr(pos, endPos - pos);
+
             //ride type
             //Find <img title="
             pos = html.indexOf('<img title="', pos) + 12;
@@ -135,8 +161,8 @@ export class apiAudax implements IapiAudax {
             //ride distance
             //<span class="distance">
             pos = html.indexOf('<span class="distance">', pos) + 23;
-            endPos = html.indexOf('</span>', pos);
-            currentRide.distance = html.substr(pos, endPos - pos);
+            endPos = html.indexOf('</span>', pos) - 2;
+            currentRide.distance = +html.substr(pos, endPos - pos);
 
 
             //Ride name

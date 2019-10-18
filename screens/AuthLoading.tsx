@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, ActivityIndicator, StatusBar, AsyncStorage } from 'react-native';
-import * as Keychain from 'react-native-keychain';
+import { View, ActivityIndicator, StatusBar} from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { NavigationInjectedProps } from 'react-navigation';
 import { Login } from '../models/login';
+import { AudaxService } from '../services/AudaxService';
 
 export interface AuthLoadingProps {
 }
@@ -21,20 +22,11 @@ export default class AuthLoadingComponent extends React.Component<NavigationInje
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
       try {
-/*         const credentials = await Keychain.getGenericPassword();
-        if (credentials){
-          let riderLoginDetail = new Login();
-          riderLoginDetail.membershipNumber = credentials.username;
-          riderLoginDetail.password = credentials.password;
-          // This will switch to the App screen or Auth screen and this loading
-          // screen will be unmounted and thrown away.
-          this.props.navigation.navigate(riderLoginDetail ? 'App' : 'Auth');
-        } */
         let riderLoginDetail = new Login();
-        riderLoginDetail.password = await AsyncStorage.getItem("AudaxPassword");
-        riderLoginDetail.membershipNumber = await AsyncStorage.getItem("AudaxUser");
-        //this.props.navigation.navigate('Auth');
-        this.props.navigation.navigate(riderLoginDetail.password ? 'App' : 'Auth');
+        riderLoginDetail.password = await SecureStore.getItemAsync("AudaxPassword");
+        riderLoginDetail.membershipNumber = +(await SecureStore.getItemAsync("AudaxUser"));
+        let loggedIn = await AudaxService.login(riderLoginDetail);
+        this.props.navigation.navigate(loggedIn ? 'MembersHome' : 'Auth');
       } catch (error) {
         this.props.navigation.navigate('Auth');
       }
