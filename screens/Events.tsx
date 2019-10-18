@@ -10,6 +10,10 @@ import TouchableScale from 'react-native-touchable-scale';
 import { eventsFilter } from '../models/eventsFilter';
 import { ActivityIndicator, Linking } from 'react-native';
 import Moment from 'moment';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import { getDistance } from 'geolib';
+
 
 export interface EventsProps {
 }
@@ -17,7 +21,9 @@ export interface EventsProps {
 export interface EventsState {
   events : CalendarEvent[],
   IsLoading : boolean,
-  myEventsFilter : eventsFilter
+  myEventsFilter : eventsFilter,
+  currentLocation : Location.LocationData,
+  errorMessage : string
 }
 
 export default class EventsComponent extends React.Component<NavigationInjectedProps<{}> & EventsProps, EventsState> {
@@ -30,8 +36,15 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     this.state = {
       events : new Array<CalendarEvent>(), 
       IsLoading : false,
-      myEventsFilter : initalEventFilter
+      myEventsFilter : initalEventFilter,
+      currentLocation: null,
+      errorMessage  : "",
     };
+  }
+
+  componentWillMount()
+  {
+    this.getLocationAsync();
   }
 
   componentDidMount()
@@ -43,6 +56,17 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     try {
       this.setState({IsLoading: true});
       let eventsList = await AudaxService.filteredEvents(filter);
+      //calculate distance from user
+      if(this.state.currentLocation !== null){
+        eventsList.Items.forEach(event => {
+          event.DistanceFromMe = +(getDistance({longitude: this.state.currentLocation.coords.longitude ,latitude: this.state.currentLocation.coords.latitude},{longitude:event.StartLongitude, latitude: event.StartLatitude}) /1000).toFixed();
+
+        });
+      } else {
+        eventsList.Items.forEach(event => {
+          event.DistanceFromMe = 0;
+        });
+      }
       this.setState({events: eventsList.Items});
     } catch (error) {
       this.setState({IsLoading: false});
@@ -59,6 +83,19 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     }
     this.setState({IsLoading: false});
   } 
+
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let currentLocation = await Location.getCurrentPositionAsync({});    
+    this.setState({ currentLocation });
+    console.log(currentLocation);
+  };
 
   renderSpinner(){
     if(this.state.IsLoading)
@@ -178,7 +215,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
           {this.renderSpinner()}
           {
           this.state.events.map((l, i) => (
-          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={l.StartCondition + ' ' + Moment(l.EventDate).format("Do MMMM YYYY")}
+          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={l.StartCondition  + l.StartAddressDescription +  ' ' + Moment(l.EventDate).format("Do MMMM YYYY") + ' Distance from me ' + l.DistanceFromMe + ' km'}
             style={{margin:5, borderRadius:10}} Component={TouchableScale} tension={100} activeScale={0.95}
             linearGradientProps={{
               colors: this.gradientCalculator(l.AwardDistance),
