@@ -9,6 +9,7 @@ import { ListItem } from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale';
 import { eventsFilter } from '../models/eventsFilter';
 import { ActivityIndicator, Linking } from 'react-native';
+import Moment from 'moment';
 
 export interface EventsProps {
 }
@@ -89,9 +90,12 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
           break;        
         case 600:
             result = ['#ffffff', '#006699']
-          break;        
+          break;    
+        case 1000:
+            result = ['#ffffff', '#999999']
+           break;       
       default:
-          result = ['#ffffff', '#999999'];
+          result = ['#ffffff', '#a38c74'];
         break;
     }
     
@@ -120,11 +124,14 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
           filter.maxDistance = filter.minDistance+99;
           break;   
         case 400:
-          filter.maxDistance = filter.minDistance+99;
+          filter.maxDistance = filter.minDistance+199;
           break;        
         case 600:
-          filter.maxDistance = filter.minDistance+99;
-          break;        
+          filter.maxDistance = filter.minDistance+399;
+          break;  
+        case 1000:
+            filter.maxDistance = filter.minDistance+3000;
+          break;       
       default:
         filter.maxDistance = filter.minDistance+99;
         break;
@@ -171,7 +178,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
           {this.renderSpinner()}
           {
           this.state.events.map((l, i) => (
-          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={l.StartCondition}
+          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={l.StartCondition + ' ' + Moment(l.EventDate).format("Do MMMM YYYY")}
             style={{margin:5, borderRadius:10}} Component={TouchableScale} tension={100} activeScale={0.95}
             linearGradientProps={{
               colors: this.gradientCalculator(l.AwardDistance),

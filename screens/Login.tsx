@@ -52,9 +52,9 @@ export default class LoginComponent extends React.Component<NavigationInjectedPr
               password: ''}} validationSchema={LoginSchema} onSubmit={this.onSubmit}>
             {({ handleChange , handleSubmit, values, errors, touched }) => (
             <View style={{  flex: 1, justifyContent: 'center', marginTop:110}}>
-              <View>
-                <Text>{errors.membershipNumber}</Text>
-                <Text>{errors.password}</Text>
+              <View style={{marginBottom:10}}>
+                <Text style={{color:'red'}}>{errors.membershipNumber}</Text>
+                <Text style={{color:'red'}}>{errors.password}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent:'center', alignItems:'flex-start', alignContent:'flex-start'}}>
                 <Label style={{width:180, height:30}}>Membership Number</Label>
