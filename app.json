@@ -10,7 +10,7 @@
     },
     "android": {
       "package": "com.andytrich.MyAudaxUK",
-      "versionCode": 5
+      "versionCode": 6
     },
     "platforms": [
       "ios",
