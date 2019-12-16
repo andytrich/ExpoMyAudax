@@ -2,7 +2,6 @@ import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { FooterTab, Button, Icon, Footer } from 'native-base';
-import NavFooter from './NavFooter';
 
 export interface FooterProps {
 }
@@ -19,8 +18,7 @@ export default class FooterComponent extends React.Component< NavigationInjected
 
   public render() {
     return (
-      <NavFooter></NavFooter>
-/*       <Footer>
+      <Footer>
         <FooterTab>
         <Button>
             <Icon name='home' onPress={()=>{this.props.navigation.navigate('Home')}}/>
@@ -32,7 +30,7 @@ export default class FooterComponent extends React.Component< NavigationInjected
             <Icon name='bike' type='MaterialCommunityIcons' onPress={()=>{this.props.navigation.navigate('AuthLoading')}}/>
         </Button>
       </FooterTab>
-      </Footer> */
+      </Footer>
     );
   }
 }
