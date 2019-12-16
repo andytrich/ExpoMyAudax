@@ -1,52 +1,35 @@
-/* import React from 'react'; 
-import renderer, { act } from 'react-test-renderer'; 
+/* import React from 'react';
+import 'react-native';
+import renderer, { act } from 'react-test-renderer';
 import LoginComponent from './Login';
 import { AudaxService } from '../services/AudaxService';
-import { fireEvent, render, wait } from '@testing-library/react-native';
+import { getNavigationPropsMock } from '../testHelper/navigationPropsMocks';
 
 
 jest.mock('../services/AudaxService');
 
-describe('<Login />', () => { 
 
-  beforeAll(()=>{ */
-   // AudaxService.mockClear();
-  // })
-// it('Clicking login should call api log in function', () => {
-  //arrange
-/*   const mockServiceInstance = AudaxService as jest.Mocked<typeof AudaxService>;
-  mockServiceInstance.login.mockResolvedValue(true);
+describe('<Login />', () => {
 
-  const mockNavigation = { navigate: jest.fn() };
-let loginElement = renderer.create(<LoginComponent navigation={mockNavigation}/>).root;
-const logInButton = loginElement.findByProps({testID: 'LoginButton'}); */
+  beforeAll(() => {
+    //AudaxService.mockClear();
+  })
+  it('Clicking login should call api log in function', () => {
+    //arrange
+    const mockServiceInstance = AudaxService as jest.Mocked<typeof AudaxService>;
+    mockServiceInstance.login.mockResolvedValue(true);
+    let loginElement = renderer.create(<LoginComponent navigation={getNavigationPropsMock<{}>()} />).root;
+    //loginElement.instance.onSubmit()
+    const logInButton = loginElement.findByProps({ testID: 'LoginButton' }).instance
+    //act
+    //This will not fire the onSubmit for two reasons
+    //The form validation is not satisfied (membership number required etc.)
+    //The Formik events haven't finished firing
+    act(() => { logInButton.props.onPress(); });
+    expect(mockServiceInstance.login).toHaveBeenCalledTimes(1);
+  }
 
-  //act
-/*   act(()=>
-    {logInButton.props.onPress();}
-  ).then(
-    data => expect(mockServiceInstance.login).toHaveBeenCalledTimes(1)
-  ); */
-
-/*   act(() =>{
-    logInButton.props.onPress();
-  }).then(()=>{done()}); */
-
-  //act(() =>{fireEvent.press(logInButton);})
-
-  //fireEvent.press(logInButton);
-  // logInButton.props.onPress();
-      //assert
-  // expect(mockServiceInstance.login).toHaveBeenCalledTimes(1);
-
-  //assert
- // expect(mockServiceInstance.login).toHaveBeenCalledTimes(1);
-
-  //let mockServiceInstance = AudaxService.mock.instances[0];
-
-/* });
-
-}); 
-
-
+  )
+}
+)
  */
