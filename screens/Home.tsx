@@ -22,7 +22,6 @@ export default class HomeComponent extends React.Component<NavigationInjectedPro
   public render() {
     return (
       <Container style={{marginTop:25}}>
-        <HeaderComponent></HeaderComponent>
         <Content>
             <Card >
               <CardItem style={{width:'100%', justifyContent:'center'}} cardBody button onPress={()=>{this.props.navigation.navigate('EventRides')}}>
@@ -35,7 +34,6 @@ export default class HomeComponent extends React.Component<NavigationInjectedPro
               </CardItem>
             </Card>
         </Content>
-        <FooterComponent navigation={this.props.navigation}></FooterComponent>
       </Container>
     );
     }

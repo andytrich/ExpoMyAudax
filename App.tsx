@@ -11,6 +11,45 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import EventsComponent from './screens/Events';
 import MembersHomeComponent from './screens/MembersHome';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { Icon, Text } from 'native-base';
+
+const AppNavigator = createMaterialBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeComponent,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="home"  />
+        )
+      }
+    },
+    EventRides: {
+      screen: EventsComponent,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="search" type='MaterialIcons'  />
+        )
+      }
+    },
+    AuthLoading: {
+      screen: AuthLoadingComponent,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="bike" type='MaterialCommunityIcons' />
+        )
+      }
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    activeColor: '#000000',
+    inactiveColor: 'rgba(0, 0, 0, 0.54);',
+    barStyle: { backgroundColor: '#FFEB3B' },
+  }
+);
+
 
 
 
@@ -31,6 +70,7 @@ const Main =  createAppContainer(
   )
 );
 
+const AppContainer = createAppContainer(AppNavigator);
 
 export interface AppProps {
 }
@@ -61,7 +101,9 @@ export default class App extends React.Component<NavigationInjectedProps<{}> & A
       return <AppLoading />;
     }
     return (
-        <Main></Main>
+      <PaperProvider>
+        <AppContainer></AppContainer>
+      </PaperProvider>
     );
   }
 }
