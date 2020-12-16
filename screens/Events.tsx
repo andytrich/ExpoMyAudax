@@ -44,8 +44,14 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
 
   componentWillMount()
   {
-    this.getLocationAsync().then
-    ((result : any | void)=>(this.getFilteredEvents(this.state.myEventsFilter)));
+    this.initialise();
+  }
+
+  async initialise()
+  {
+    await this.getLocationAsync();
+    
+    await this.getFilteredEvents(this.state.myEventsFilter);
   }
 
   async getFilteredEvents(filter : eventsFilter){

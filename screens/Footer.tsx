@@ -9,8 +9,8 @@ export interface FooterProps {
 export interface FooterState {
 }
 
-export default class FooterComponent extends React.Component< NavigationInjectedProps<{}> &FooterProps, FooterState> {
-  constructor(props:  NavigationInjectedProps<{}> & FooterProps) {
+export default class FooterComponent extends React.Component<NavigationInjectedProps<{}> & FooterProps, FooterState> {
+  constructor(props: NavigationInjectedProps<{}> & FooterProps) {
     super(props);
     this.state = {
     };
@@ -19,17 +19,17 @@ export default class FooterComponent extends React.Component< NavigationInjected
   public render() {
     return (
       <Footer>
-        <FooterTab>
-        <Button>
-            <Icon name='home' onPress={()=>{this.props.navigation.navigate('Home')}}/>
-        </Button>
-        <Button>
-            <Icon name='search' onPress={()=>{this.props.navigation.navigate('EventRides')}}/>
-        </Button>
-        <Button>
-            <Icon name='bike' type='MaterialCommunityIcons' onPress={()=>{this.props.navigation.navigate('AuthLoading')}}/>
-        </Button>
-      </FooterTab>
+{/*         <FooterTab>
+          <Button>
+            <Icon name='home' onPress={() => { this.props.navigation.navigate('Home') }} />
+          </Button>
+          <Button>
+            <Icon name='search' onPress={() => { this.props.navigation.navigate('EventRides') }} />
+          </Button>
+          <Button>
+            <Icon name='bike' type='MaterialCommunityIcons' onPress={() => { this.props.navigation.navigate('AuthLoading') }} />
+          </Button>
+        </FooterTab> */}
       </Footer>
     );
   }
