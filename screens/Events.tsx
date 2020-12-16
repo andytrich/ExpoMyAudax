@@ -49,9 +49,10 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
 
   async initialise()
   {
-    await this.getLocationAsync();
-    
+    await this.getLocationAsync();  
     await this.getFilteredEvents(this.state.myEventsFilter);
+
+
   }
 
   async getFilteredEvents(filter : eventsFilter){
@@ -88,16 +89,22 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
   } 
 
   getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
+    try {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      this.setState({ currentLocation });
+    } catch(error) {
+      console.log(error)
     }
-
-    let currentLocation = await Location.getCurrentPositionAsync({});    
-    this.setState({ currentLocation });
-
+    finally {
+      
+    }
   };
 
   renderSpinner(){
