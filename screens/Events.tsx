@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { Container, Content, Text, Button, View, Spinner, Picker, Icon } from 'native-base';
+import { Container, Content,  View, Spinner, Picker, Icon } from 'native-base';
 import HeaderComponent from './Header';
 import FooterComponent from './Footer';
 import { NavigationInjectedProps } from 'react-navigation';
 import { AudaxService } from '../services/AudaxService';
 import { CalendarEvent } from '../models/calendarEvents';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Text} from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale';
 import { eventsFilter } from '../models/eventsFilter';
 import { ActivityIndicator, Linking } from 'react-native';
 import Moment from 'moment';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import { getDistance } from 'geolib';
+
 
 export interface EventsProps {
 }
@@ -17,7 +21,9 @@ export interface EventsProps {
 export interface EventsState {
   events : CalendarEvent[],
   IsLoading : boolean,
-  myEventsFilter : eventsFilter
+  myEventsFilter : eventsFilter,
+  currentLocation : Location.LocationData,
+  errorMessage : string
 }
 
 export default class EventsComponent extends React.Component<NavigationInjectedProps<{}> & EventsProps, EventsState> {
@@ -29,20 +35,35 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     initalEventFilter.maxDistance = 99;
     this.state = {
       events : new Array<CalendarEvent>(), 
-      IsLoading : false,
-      myEventsFilter : initalEventFilter
+      IsLoading : true,
+      myEventsFilter : initalEventFilter,
+      currentLocation: null,
+      errorMessage  : "",
     };
   }
 
-  componentDidMount()
+  componentWillMount()
   {
-    this.getFilteredEvents(this.state.myEventsFilter);
+    this.getLocationAsync().then
+    ((result : any | void)=>(this.getFilteredEvents(this.state.myEventsFilter)));
   }
+
   async getFilteredEvents(filter : eventsFilter){
     
     try {
       this.setState({IsLoading: true});
       let eventsList = await AudaxService.filteredEvents(filter);
+      //calculate distance from user
+      if(this.state.currentLocation !== null){
+        eventsList.Items.forEach(event => {
+          event.DistanceFromMe = +(getDistance({longitude: this.state.currentLocation.coords.longitude ,latitude: this.state.currentLocation.coords.latitude},{longitude:event.StartLongitude, latitude: event.StartLatitude}) /1000).toFixed();
+
+        });
+      } else {
+        eventsList.Items.forEach(event => {
+          event.DistanceFromMe = 0;
+        });
+      }
       this.setState({events: eventsList.Items});
     } catch (error) {
       this.setState({IsLoading: false});
@@ -59,6 +80,19 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     }
     this.setState({IsLoading: false});
   } 
+
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let currentLocation = await Location.getCurrentPositionAsync({});    
+    this.setState({ currentLocation });
+
+  };
 
   renderSpinner(){
     if(this.state.IsLoading)
@@ -141,6 +175,16 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
     this.getFilteredEvents(filter);
   }
 
+  private renderEventDetails(event : CalendarEvent)
+  {
+    return (
+      <View>
+        <Text style={{fontSize:14}}>{event.StartCondition  + event.StartAddressDescription}</Text>
+        <Text style={{fontSize:14, fontWeight:'bold'}}>{Moment(event.EventDate).format("Do MMMM YYYY")}</Text>
+        <Text style={{fontSize:14}}>{'Distance from me ' + event.DistanceFromMe + ' km'}</Text>
+      </View>
+    );
+  }
 
   public render() {
     let filter = this.state.myEventsFilter;
@@ -178,7 +222,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
           {this.renderSpinner()}
           {
           this.state.events.map((l, i) => (
-          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={l.StartCondition + ' ' + Moment(l.EventDate).format("Do MMMM YYYY")}
+          <ListItem key={i} rightTitle={l.AwardDistance+'Km'} title={l.Title} subtitle={this.renderEventDetails(l)}
             style={{margin:5, borderRadius:10}} Component={TouchableScale} tension={100} activeScale={0.95}
             linearGradientProps={{
               colors: this.gradientCalculator(l.AwardDistance),

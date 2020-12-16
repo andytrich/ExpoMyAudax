@@ -30,6 +30,7 @@
         IsPaypalEntryFee: boolean;
         IsPostalEntry: boolean;
         UpdateReasonCode?: any;
+        DistanceFromMe: number;
     }
 
     export interface CalendarEvents {
