@@ -21,3 +21,5 @@ yarn-error.log
 .vscode/.react/node_modules%5Cexpo%5CAppEntry.bundle
 
 yarn.lock
+
+debug.log

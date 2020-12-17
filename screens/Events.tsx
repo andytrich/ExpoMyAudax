@@ -245,7 +245,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
             ))
             }
         </Content>
-        <FooterComponent navigation={this.props.navigation}></FooterComponent>
+        {/* <FooterComponent navigation={this.props.navigation}></FooterComponent> */}
       </Container>
     );
   }

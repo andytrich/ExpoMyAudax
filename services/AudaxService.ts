@@ -16,6 +16,8 @@ import {
 import Axios, {
     AxiosResponse
 } from 'axios';
+import { Form } from 'native-base';
+import { date } from 'yup';
 
 
 export interface IapiAudax {
@@ -102,11 +104,9 @@ export class apiAudax implements IapiAudax {
     async filteredEvents(filter: eventsFilter): Promise<CalendarEvents> {
         filter.page=1;
         filter.pageSize=300
-        filter.orderBy='eventdate'
-        
-        filter.fromDate = new Date();
-        filter.toDate = new Date();  
-        filter.toDate.setFullYear(filter.fromDate.getFullYear() + 1)
+        filter.orderBy='eventdate'        
+        filter.fromDate = new Date(); //date now        
+        filter.durationNights = 365;
         try{
             let response = await Axios.get('https://www.audax.uk/umbraco/surface/Events/Search'
             ,{
@@ -116,7 +116,7 @@ export class apiAudax implements IapiAudax {
             return response.data;
         }catch(error)
         {
-
+            console.log(error);
         }
         return null;
     }

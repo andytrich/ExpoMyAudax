@@ -24,7 +24,7 @@ export class eventsFilter implements IeventsFilter {
     minDistance: number;    
     maxDistance: number;
     fromDate: Date;
-    toDate: Date;
+    durationNights: number;
     postcode: string;
     radius: number;
     textSearch: string;
