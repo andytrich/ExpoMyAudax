@@ -15,7 +15,7 @@ import MembersHomeComponent from './screens/MembersHome';
 
 
 const AuthStack = createStackNavigator({ Login: LoginComponent },{headerMode:'none'});
-const AppStack = createStackNavigator({ Home: HomeComponent, MyRides: MyRidesComponent, MyDetails: MyDetailsComponent, EventRides : EventsComponent, MembersHome : MembersHomeComponent },{headerMode:'none'});
+const AppStack = createStackNavigator({ EventRides : EventsComponent },{headerMode:'none'});
 
 
 const Main =  createAppContainer(
