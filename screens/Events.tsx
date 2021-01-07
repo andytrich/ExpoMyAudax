@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Container, Content,  View, Spinner, Picker, Icon } from 'native-base';
 import HeaderComponent from './Header';
-import FooterComponent from './Footer';
 import { NavigationInjectedProps } from 'react-navigation';
 import { AudaxService } from '../services/AudaxService';
 import { CalendarEvent } from '../models/calendarEvents';
