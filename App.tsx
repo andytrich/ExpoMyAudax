@@ -1,36 +1,9 @@
 import React from 'react';
-import LoginComponent from './screens/Login';
-import { createAppContainer, createSwitchNavigator, NavigationInjectedProps } from "react-navigation";
-import { createStackNavigator } from 'react-navigation-stack';
-import MyRidesComponent from './screens/MyRides';
-import HomeComponent from './screens/Home';
-import AuthLoadingComponent from './screens/AuthLoading';
-import MyDetailsComponent from './screens/MyDetails';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import EventsComponent from './screens/Events';
-import MembersHomeComponent from './screens/MembersHome';
-
-
-
-const AuthStack = createStackNavigator({ Login: LoginComponent },{headerMode:'none'});
-const AppStack = createStackNavigator({ EventRides : EventsComponent },{headerMode:'none'});
-
-
-const Main =  createAppContainer(
-  createSwitchNavigator(
-    {
-      AuthLoading: AuthLoadingComponent,
-      App: AppStack,
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: 'App',
-    }
-  )
-);
-
+import EventRides from './screens/Events';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export interface AppProps {
 }
@@ -39,8 +12,8 @@ export interface AppState {
   isReady : boolean
 }
 
-export default class App extends React.Component<NavigationInjectedProps<{}> & AppProps, AppState> {
-  constructor(props: NavigationInjectedProps<{}> & AppProps) {
+export default class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       isReady: false,
@@ -61,7 +34,9 @@ export default class App extends React.Component<NavigationInjectedProps<{}> & A
       return <AppLoading />;
     }
     return (
-        <Main></Main>
+      <SafeAreaProvider>
+        <EventRides navigation={undefined}></EventRides>
+        </SafeAreaProvider>
     );
   }
 }
