@@ -19,8 +19,8 @@ export default class HeaderComponent extends React.Component<HeaderProps, Header
   }
 
   public render() {
-    return <>
-    <StatusBar bg="#3700B3" barStyle="light-content" />
+    return (<></>);
+{/*     <StatusBar bg="#3700B3" barStyle="light-content" />
     <Box safeAreaTop bg="violet.600" />
     <HStack bg="violet.800" px="1" py="3" justifyContent="space-between" alignItems="center" w="100%" maxW="350">
       <HStack alignItems="center">
@@ -34,6 +34,7 @@ export default class HeaderComponent extends React.Component<HeaderProps, Header
         <IconButton icon={<Icon as={MaterialIcons} name="search" size="sm" color="white" />} />
         <IconButton icon={<Icon as={MaterialIcons} name="more-vert" size="sm" color="white" />} />
       </HStack>
-    </HStack>
-  </>;
+    </HStack> */}
+  
+  }
 }

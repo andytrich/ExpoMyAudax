@@ -9,7 +9,7 @@
     },
     "android": {
       "package": "com.andytrich.MyAudaxUK",
-      "versionCode": 7
+      "versionCode": 8
     },
     "platforms": [
       "ios",
@@ -29,6 +29,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "description": "Access your Audax UK calendar and history as well as view rides coming up"
+    "description": "Access your Audax UK calendar and history as well as view rides coming up",
+    "extra": {
+      "eas": {
+        "projectId": "382a6590-df6e-11e9-ba27-653be45a3162"
+      }
+    }
   }
 }

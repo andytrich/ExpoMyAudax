@@ -10,7 +10,6 @@ import { eventsFilter } from '../models/eventsFilter';
 import { ActivityIndicator, Linking } from 'react-native';
 import Moment from 'moment';
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import { getDistance } from 'geolib';
 
 
@@ -21,7 +20,7 @@ export interface EventsState {
   events : CalendarEvent[],
   IsLoading : boolean,
   myEventsFilter : eventsFilter,
-  currentLocation : Location.LocationData,
+  currentLocation : Location.LocationObject,
   errorMessage : string
 }
 
@@ -89,7 +88,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
 
   getLocationAsync = async () => {
     try {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         this.setState({
           errorMessage: 'Permission to access location was denied',
@@ -190,19 +189,20 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
   private renderEventDetails(event : CalendarEvent)
   {
     return (
-      <View>
+      <></>
+/*       <View>
         <Text style={{fontSize:14}}>{event.StartCondition  + event.StartAddressDescription}</Text>
         <Text style={{fontSize:14, fontWeight:'bold'}}>{Moment(event.EventDate).format("Do MMMM YYYY")}</Text>
         <Text style={{fontSize:14}}>{'Distance from me ' + event.DistanceFromMe + ' km'}</Text>
-      </View>
+      </View> */
     );
   }
 
   public render() {
     let filter = this.state.myEventsFilter;
 
-    return (
-      <Container style={{marginTop:25}}>
+    return (<></>
+ /*      <Container style={{marginTop:25}}>
         <HeaderComponent></HeaderComponent>
         <View style={{backgroundColor : '#f2f0f0', borderStyle:'solid', borderRadius:10, borderColor:'#999999' }}>
           <Text>Select Distance</Text>
@@ -244,7 +244,7 @@ export default class EventsComponent extends React.Component<NavigationInjectedP
             ))
             }
         </Content>
-      </Container>
+      </Container> */
     );
   }
 }
